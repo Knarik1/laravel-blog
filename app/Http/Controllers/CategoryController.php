@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Category;
-use Illuminate\Http\Request;
-use App\User;
-use Illuminate\Support\Facades\Auth;
 
-class UserController extends Controller
+use App\Category;
+use App\Post;
+use Illuminate\Http\Request;
+
+
+class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,10 +17,7 @@ class UserController extends Controller
      */
     public function index()
     {
-
-        $users = User::all()->load('posts.images');
-        return view('welcome')->with('users', $users);
-
+        
     }
 
     /**
@@ -51,8 +49,8 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $category = Category::find($id)->load('cat_posts.images');
-        return view('category', compact('category'));
+        $category_posts = Category::find($id)->load('posts');
+        return view('category', compact('category_posts'));
     }
 
     /**
@@ -63,7 +61,6 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
     }
 
     /**
@@ -75,7 +72,6 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
     }
 
     /**

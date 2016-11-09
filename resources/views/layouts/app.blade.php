@@ -23,6 +23,12 @@
         .fa-btn {
             margin-right: 6px;
         }
+
+         .carousel-inner > .item > img,
+         .carousel-inner > .item > a > img {
+             width: 70%;
+             margin: auto;
+         }
     </style>
 </head>
 <body id="app-layout">
@@ -50,10 +56,50 @@
 
                         @if (Auth::check())
                         {{--<li><a href="{{ url('posts/create/'.Auth::user()->id) }}">New Post</a></li>--}}
-                        <li><a href="{{ url('posts/create/'.Auth::user()->id) }}">New Post</a></li>
+                        <li><a href="{{ url('posts/create/'.Auth::id()) }}">New Post</a></li>
+                        <li><a href="{{ url('/home/') }}">My Posts</a></li>
 
                           @endif
+                    <li>
+                        <div class="dropdown" style="padding-top: 3px">
+                            <a class="btn btn-lg dropdown-toggle" type="button" data-toggle="dropdown">
+                                Categories <span class="caret"></span>
+                            </a>
+
+                            <ul class="dropdown-menu list-group">
+                                @foreach($all_categories as $category)
+
+                                    <li class="list-group-item list-group-item-action list-group-item-success">
+                                        <a class="dropdown-item" href="{{ route('category.show', $category->id) }}">
+                                            {{ $category->name }}
+                                        </a>
+                                    </li>
+                                @endforeach
+                            </ul>
+
+                        </div>
+                    </li>
+                            <li>
+                                <div class="dropdown" style="padding-top: 3px">
+                                    <a class="btn btn-lg dropdown-toggle" type="button" data-toggle="dropdown">
+                                        Tags <span class="caret"></span>
+                                    </a>
+
+                                    <ul class="dropdown-menu list-group">
+                                        @foreach($all_tags as $tag)
+
+                                            <li class="list-group-item list-group-item-action list-group-item-success">
+                                                <a class="dropdown-item" href="{{ route('tag.show', $tag->id) }}">
+                                                    {{ $tag->name }}
+                                                </a>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+
+                                </div>
+                            </li>
                 </ul>
+
 
                 <!-- Right Side Of Navbar -->
                 <ul class="nav navbar-nav navbar-right">
@@ -87,5 +133,6 @@
     <script src="{{ asset('assets/bootstrap/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('assets/js/ajax.js') }}"></script>
     {{-- <script src="{{ elixir('js/app.js') }}"></script> --}}
+@yield('scripts ')
 </body>
 </html>

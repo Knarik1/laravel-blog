@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests;
 
-use App\Http\Requests\Request;
 
 class PostConfirm extends Request
 {
@@ -27,6 +26,8 @@ class PostConfirm extends Request
         return [
             'heading' => 'required',
             'text' => 'required',
+            'category' =>'required',
+            'tag' =>'required',
             'image' => 'image'
         ];
     }

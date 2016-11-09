@@ -2,13 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Category;
 use Illuminate\Http\Request;
-use App\User;
-use Illuminate\Support\Facades\Auth;
+use App\PostImage;
 
-class UserController extends Controller
+use App\Post;
+
+class PostController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth',['only' => ['edit', 'update']]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -16,10 +21,7 @@ class UserController extends Controller
      */
     public function index()
     {
-
-        $users = User::all()->load('posts.images');
-        return view('welcome')->with('users', $users);
-
+        //
     }
 
     /**
@@ -51,8 +53,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $category = Category::find($id)->load('cat_posts.images');
-        return view('category', compact('category'));
+        //
     }
 
     /**
@@ -63,7 +64,8 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        $post = Post::find($id)->load('images');
+        return view('posts.edit',compact('post'));
     }
 
     /**
@@ -75,7 +77,33 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $new_post = Post::find($id);
+        $new_post['category_id'] = $request['cat'];
+        $new_post->update($request->all());
+        $new_post->save();
+
+        $files = $request->file('images');
+        $files_count = count($files);
+        $uploaded_files = 0;
+        $imagesArray = [];
+
+        if ($request->hasFile('images')) {
+            foreach ($files as $file) {
+                if ($file->isValid()) {
+                    $rand = str_random(5, 8);
+                    $name = $rand . '_' . $file->getClientOriginalName();
+
+                    $image = new PostImage();
+                    $image->image = $name;
+                    $imagesArray[] = $image;
+                    $file->move(public_path() . '/images/', $name);
+                    $uploaded_files++;
+                }
+            }
+
+        }
+        $new_post->images()->saveMany($imagesArray);
+        return redirect('/home');
     }
 
     /**

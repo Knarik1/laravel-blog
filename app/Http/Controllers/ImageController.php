@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Category;
+use App\PostImage;
 use Illuminate\Http\Request;
-use App\User;
-use Illuminate\Support\Facades\Auth;
 
-class UserController extends Controller
+class ImageController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,10 +14,7 @@ class UserController extends Controller
      */
     public function index()
     {
-
-        $users = User::all()->load('posts.images');
-        return view('welcome')->with('users', $users);
-
+        //
     }
 
     /**
@@ -51,8 +46,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $category = Category::find($id)->load('cat_posts.images');
-        return view('category', compact('category'));
+        //
     }
 
     /**
@@ -86,6 +80,10 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $image = PostImage::where('id', $id)
+            ->first();
+
+        $image->delete();
+        return redirect('/home');
     }
 }

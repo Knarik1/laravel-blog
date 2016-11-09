@@ -5,22 +5,24 @@
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
             <div class="panel panel-default">
-                <div class="panel-heading">Dashboard</div>
+                <div class="panel-heading">
+                    <h3>Category: <span class="text-danger">{{ strtoupper($category_posts['name']) }}</span></h3>
+                </div>
                 <div class="panel-body">
-                    @foreach($users as $user)
-                        @foreach($user['posts'] as $post)
+
+                    @if(count($category_posts['posts'])>0)
+                    @foreach($category_posts['posts'] as $post)
+
                             <div class="panel panel-default">
                                 <div class="panel-body">
-                                    {{--<button class="btn btn-primary btn-sm" type="button">category : {{ $post['category']['name'] }}</button>--}}
                                     <h3>
-                                        <span class="label" style="background-color: {{ $post['color'] }}">{{ $user['email'] }}</span>
+{{--                                        <span class="label" style="background-color: {{ $post['color'] }}">{{ $user['email'] }}</span>--}}
                                         <small>{{ $post['created_at'] }}</small><br><br>
                                         {{ $post['heading'] }}
                                     </h3>
                                 </div>
 
                                 @if(count($post['images'])>0)
-
                                 <div id="myCarousel" class="carousel slide" data-ride="carousel">
                                     <!-- Indicators -->
                                     <ol class="carousel-indicators">
@@ -66,15 +68,15 @@
 
                                 </div>
                                 @endif
-                                <!--end of the carousel-->
 
                                 <div class="panel-footer">
                                     <p>{{ $post['text'] }}</p>
                                 </div>
                             </div>
-                        @endforeach
                     @endforeach
-
+                    @else
+                        <h4 class="text text-warning text-center">this category is empty</h4>
+                    @endif
                 </div>
             </div>
             </div>

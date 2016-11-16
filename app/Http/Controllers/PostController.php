@@ -4,14 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\PostImage;
-
 use App\Post;
 
 class PostController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth',['only' => ['edit', 'update']]);
+        $this->middleware('auth',['only' => ['edit', 'update','show']]);
     }
 
     /**
@@ -21,7 +20,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
+        $posts = Post::all();
+        return view('posts.post_management',compact('posts'));
     }
 
     /**
@@ -53,7 +53,8 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        //
+        $post = Post::find($id)->load('tags','category');
+        return view('posts.post_table',compact('post'));
     }
 
     /**

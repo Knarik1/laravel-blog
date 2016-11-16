@@ -6,8 +6,6 @@ use App\User;
 use App\Post;
 use App\PostImage;
 use App\Category;
-use App\Tag;
-
 use Illuminate\Http\Request;
 use Illuminate\Auth\Access\Response;
 use Illuminate\Support\Facades\Auth;
@@ -34,7 +32,7 @@ class HomeController extends Controller
     {
         $auth_user = Auth::user();
 
-        $user = User::find($auth_user->id)->load('posts.images', 'posts.category', 'posts.tags');
+        $user = User::find($auth_user->id)->load('posts.images', 'posts.category', 'posts.tags','posts.comments');
 //        $one_user_posts = $user->posts()->with('images')->get();
 //        $one_user_posts->user_email = $user['email'];
         return view('posts.show')->with('user', $user);
@@ -62,7 +60,7 @@ class HomeController extends Controller
         $post->color = $post_info['color'];
 
         $cat_id = $post_info['cat'];
-        $cat = Category::where('id', $cat_id)->first();
+        $cat = Category::find($cat_id);
 
         $post->category()->associate($cat);
 
@@ -114,16 +112,12 @@ class HomeController extends Controller
      */
     public function show($post_id)
     {
-        $auth_user = Auth::user();
-
-//        $auth_user_post = User::where('id',$auth_user->id)
-//                            ->whereHas('posts',function($query) use ($post_id) {
-//                                    $query->where('id',$post_id);
-//                            })->get();
-        $post_item = Post::where('id',$post_id)->where('user_id',$auth_user->id)->first();
-        $post_item->load('images');
-
-        return view('posts.showPost',compact('post_item'));
+        $post = Post::find($post_id);
+        $posts_comments = $post->load(['comments' => function($query){
+            $query->where('belong_to', '0');
+        }]);
+        $post->load('images','user');
+        return view('posts.showPost',compact('post','posts_comments'));
     }
     public function destroy(Request $request,$post_id)
     {

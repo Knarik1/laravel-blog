@@ -4,12 +4,15 @@ namespace App\Http\Controllers;
 
 
 use App\Category;
-use App\Post;
 use Illuminate\Http\Request;
 
 
 class CategoryController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth',['only' => ['index','show']]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -17,7 +20,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        
+        $categories = Category::all();
+        return view('categories.category_management',compact('categories'));
     }
 
     /**

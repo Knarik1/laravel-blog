@@ -25,6 +25,11 @@ Route::resource('image', 'ImageController');
 
 Route::resource('user', 'UserController');
 
+Route::resource('comment', 'CommentController');
+
+Route::get('create-comment/{post_id}', 'CommentController@createComment');
+
+Route::post('reply', 'CommentController@reply');
 
 Route::resource('tag', 'TagController');
 

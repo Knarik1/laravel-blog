@@ -80,8 +80,7 @@ class ImageController extends Controller
      */
     public function destroy($id)
     {
-        $image = PostImage::where('id', $id)
-            ->first();
+        $image = PostImage($id);
 
         $image->delete();
         return redirect('/home');

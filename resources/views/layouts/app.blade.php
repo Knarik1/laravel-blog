@@ -10,10 +10,11 @@
 
     <!-- Fonts -->
 
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700">
+    {{--<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700">--}}
 
     <!-- Styles -->
     <link rel="stylesheet" href="{{ asset('assets/bootstrap/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/bootstrap/css/simple-sidebar.css') }}" >
 
     <style>
         body {
@@ -98,6 +99,9 @@
 
                                 </div>
                             </li>
+                    <li>
+                        <a href="{{ route('tag.index') }}">Tag management</a>
+                    </li>
                 </ul>
 
 
@@ -122,14 +126,47 @@
             </div>
         </div>
     </nav>
+    <div class="row">
+        <div class="col-md-1">
+                @if(Auth::check())
+                @section('sidebar')
+                    <!-- Sidebar -->
+                    <div id="sidebar-wrapper">
+                        <ul class="sidebar-nav">
+                            <li class="sidebar-brand">
+                                <a href="#">
+                                    Management
+                                </a>
+                            </li>
+                            <li>
+                                {{--<a href="#">{{ $tag['name'] }}</a>--}}
+                                <a href="{{ route('category.index') }}">category</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('tag.index') }}">tag</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('post.index') }}">post</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- /#sidebar-wrapper -->
+                @show
+                @endif
+            </div>
+<div class="col-md-10">
 
-    @yield('content')
+                @yield('content')
+</div>
+</div>
+
 
 
 
     <!-- JavaScripts -->
     {{--<script src="{{ asset('assets/bootsrtap/js/jquery.min.js') }}"></script>--}}{{-- not working--}}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js" integrity="sha384-I6F5OKECLVtK/BL+8iSLDEHowSAfUo76ZL9+kGAgTRdiByINKJaqTPH/QVNS1VDb" crossorigin="anonymous"></script>
+    {{--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js" integrity="sha384-I6F5OKECLVtK/BL+8iSLDEHowSAfUo76ZL9+kGAgTRdiByINKJaqTPH/QVNS1VDb" crossorigin="anonymous"></script>--}}
+    <script src="{{ asset('assets/bootstrap/js/jquery.min.js') }}"></script>
     <script src="{{ asset('assets/bootstrap/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('assets/js/ajax.js') }}"></script>
     {{-- <script src="{{ elixir('js/app.js') }}"></script> --}}

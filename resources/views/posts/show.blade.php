@@ -11,9 +11,9 @@
                         {{--{{ dd($user['posts'][3]['tags']) }}--}}
                     <div class="panel panel-default anime" id="panel-div-id-{{ $post['id'] }}">
                         <div class="panel-body">
-                            <button class="btn btn-primary btn-sm" type="button">category : {{ $post['category']['name'] }}</button>
+                            <button class="btn btn-default btn-sm" type="button">category : {{ $post['category']['name'] }}</button>
                             @foreach($post['tags'] as $tag)
-                                <button class="btn btn-danger btn-sm" type="button">tag : {{ $tag['name'] }}</button>
+                                <button class="btn btn-default btn-sm" type="button">tag : {{ $tag['name'] }}</button>
                              @endforeach
                             <h3>
                                 {{ $post['heading'] }}
@@ -29,6 +29,9 @@
                                 <img src="{{ asset('/images/'.$image['image']) }}" alt="" style="height: 40px">
                             @endforeach
                             <p>{{ $post['text'] }}</p>
+                                    <button class="btn btn-warning btn-sm" type="button" id="btn-comments">
+                                        Comments <span class="badge">{{ (count($post['comments'])) }}</span>
+                                    </button>
                         </div>
                     </div>
                     @endforeach

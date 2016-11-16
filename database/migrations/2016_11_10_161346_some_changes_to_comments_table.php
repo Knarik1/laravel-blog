@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddColorTooPostsTable extends Migration
+class SomeChangesToCommentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,8 +12,8 @@ class AddColorTooPostsTable extends Migration
      */
     public function up()
     {
-        Schema::table('posts', function (Blueprint $table) {
-            $table->string('color')->after('text');
+        Schema::table('comments', function (Blueprint $table) {
+        
         });
     }
 
@@ -24,7 +24,7 @@ class AddColorTooPostsTable extends Migration
      */
     public function down()
     {
-        Schema::table('posts', function (Blueprint $table) {
+        Schema::table('comments', function (Blueprint $table) {
             //
         });
     }

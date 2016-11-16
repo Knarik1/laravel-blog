@@ -18,6 +18,7 @@ class CreatePostsTable extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->string('heading');
             $table->text('text');
+            $table->string('color');
             $table->rememberToken();
             $table->timestamps();
         });

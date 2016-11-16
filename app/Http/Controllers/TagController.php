@@ -8,6 +8,10 @@ use App\Tag;
 
 class TagController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth',['only' => ['index','show']]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +19,8 @@ class TagController extends Controller
      */
     public function index()
     {
-        //
+        $tags = Tag::all()->load('posts');
+        return view('tags.tag_management',compact('tags'));
     }
 
     /**

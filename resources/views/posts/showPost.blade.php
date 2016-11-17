@@ -5,10 +5,10 @@
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
                 <div class="panel panel-default">
+
                     <div class="panel-heading">
                         <h3 class="text-center text-primary">Edit Post</h3>
                     </div>
-
 
                     <div class="panel-body">
 
@@ -36,22 +36,16 @@
 
 
 
-
-
-
-
-
-
                                 <div class="container-div">
-
+                            {{--{{ dd($post) }}--}}
                                     <div class="comments-well">
                                         @if(count($post['comments'])>0)
                                             @foreach($post['comments'] as $comment)
                                                 <div class="well">
-                                                    <button>email</button>
-                                                    <button>date</button>
-                                                    {{ $comment['text'] }}
-                                                    <button class="for-reply-ajax-btn" formaction="{{ url('/comment/'.$comment['id']) }}">
+                                                    <button style="float: right">{{ $comment['user']['name']}}</button>
+                                                    <button style="float: right">{{ $comment['created_at'] }}</button>
+                                                    <p>{{ $comment['text'] }}</p>
+                                                    <button class="btn btn-warning btn-sm for-reply-ajax-btn" formaction="{{ url('/comment/'.$comment['id']) }}">
                                                         reply
                                                     </button>
                                                     <div class="for-putting-recursion-div"></div>
@@ -81,18 +75,11 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
+                            </div>
+                        </div>
 
                     </div>
+
                 </div>
             </div>
         </div>

@@ -11,7 +11,7 @@
                         @foreach($user['posts'] as $post)
                             <div class="panel panel-default">
                                 <div class="panel-body">
-                                    {{--<button class="btn btn-primary btn-sm" type="button">category : {{ $post['category']['name'] }}</button>--}}
+                                    <button class="btn btn-primary btn-sm" type="button">category : {{ $post['category']['name'] }}</button>
                                     <h3>
                                         <span class="label" style="background-color: {{ $post['color'] }}">{{ $user['email'] }}</span>
                                         <small>{{ $post['created_at'] }}</small><br><br>
@@ -74,7 +74,7 @@
                             </div>
                         @endforeach
                     @endforeach
-
+                        {{ $users->links() }}
                 </div>
             </div>
             </div>

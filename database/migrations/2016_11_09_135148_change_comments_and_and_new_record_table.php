@@ -13,7 +13,7 @@ class ChangeCommentsAndAndNewRecordTable extends Migration
     public function up()
     {
         Schema::table('comments', function (Blueprint $table) {
-            $table->integer('belong_to')->unsigned()->index();
+            $table->integer('belong_to')->unsigned()->index()->nullable();
             $table->foreign('belong_to')
                   ->references('id')->on('comments')
                   ->onDelete('cascade');  

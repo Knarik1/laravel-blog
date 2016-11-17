@@ -113,11 +113,11 @@ class HomeController extends Controller
     public function show($post_id)
     {
         $post = Post::find($post_id);
-        $posts_comments = $post->load(['comments' => function($query){
-            $query->where('belong_to', '0');
-        }]);
+        $post->load(['comments' => function($query){
+            $query->where('belong_to', null);
+        }, 'comments.user']);
         $post->load('images','user');
-        return view('posts.showPost',compact('post','posts_comments'));
+        return view('posts.showPost',compact('post'));
     }
     public function destroy(Request $request,$post_id)
     {

@@ -6,6 +6,7 @@ use App\Category;
 use Illuminate\Http\Request;
 use App\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -17,8 +18,9 @@ class UserController extends Controller
     public function index()
     {
 
-        $users = User::all()->load('posts.images');
-        return view('welcome')->with('users', $users);
+        $users = User::with('posts.images')->paginate(2);
+
+        return view('welcome')->with('users',$users);
 
     }
 

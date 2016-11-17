@@ -53,16 +53,14 @@ class CommentController extends Controller
             $user_id = $data['user_id'];
             $user = User::find($user_id);
             $comment->user()->associate($user);
+
             if(!empty($data['belong_to'])) {
                 $belong_to = $data['belong_to'];
                 $comment_belong = Comment::find($belong_to);
                 $comment->belong_to_comment()->associate($comment_belong);
             }
             if($comment->save()){
-                $comment_date = $comment['created_at'];
-                $user_email = $comment['user']['email'];
-                $data_text = $comment['text'];
-                return json_encode([$user_email, $data_text, $comment_date, $comment]);
+                return json_encode($comment);
             } else {
                 return redirect()->back();
             }
@@ -78,12 +76,8 @@ class CommentController extends Controller
     {
         if ($request->ajax()) {
             $comment = Comment::find($comment_id);
-            $comment->load('replies', 'replies.user');
-            $comment_replies =  $comment['replies'];
-            $reply_user_id = Auth::user()->id;
-            $post_id = $comment->post_id;
-            $belong_to = $comment_id;
-            return json_encode([$comment_replies, $reply_user_id, $post_id, $belong_to]);
+            $comment_replies = $comment->load('replies', 'replies.user');
+            return json_encode($comment_replies);
         }
     }
 

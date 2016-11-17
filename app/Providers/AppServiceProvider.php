@@ -15,7 +15,7 @@ class AppServiceProvider extends ServiceProvider
     {
         $all_categories = DB::table('categories')-> select('id','name')->get();
         view()->share('all_categories', $all_categories);
-        
+
         $all_tags = DB::table('tags')->select('id','name','description')->get();
         view()->share('all_tags',$all_tags);
     }

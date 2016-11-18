@@ -142,7 +142,7 @@ $(document).ready(function () {
                                   '</button><p>' +
                                   myData.text +
                                  '</p><button class="btn btn-warning btn-sm for-reply-ajax-btn" formaction="' +
-                                  formUrl+ myData.id +
+                                  formUrl + '/'+ myData.id +
                                  '"> reply  </button>' +
                                 '<div class="for-putting-recursion-div"></div>' +
                                 '</div>';
